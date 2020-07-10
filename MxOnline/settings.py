@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'django.contrib.admin',  # 后台管理系统app
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'apps.courses.apps.CoursesConfig',
     'apps.opreations.apps.OpreationsConfig',
     'apps.organizations.apps.OrganizationsConfig',
+    'crispy_forms',
+    'xadmin.apps.XAdminConfig',
 
 ]
 
@@ -100,6 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
+    # 这是是对后台用户密码的约束
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
@@ -115,15 +118,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # 继承了原有的django auth_user类之后需要设置一下才能生效
 AUTH_USER_MODEL = 'users.UserProfile'
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
