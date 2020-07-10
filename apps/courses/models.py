@@ -36,6 +36,9 @@ class Course(BaseModel):
         verbose_name = '课程信息'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 # 第二个实体：章节
 # 课程（course）与章节（Lesson）是一对多的关系，因此要在Lesson里面设置一个外键course
@@ -50,6 +53,9 @@ class Lesson(BaseModel):
         verbose_name = '课程章节'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 # 第三个实体：视频（video）
 class Video(BaseModel):
@@ -62,6 +68,9 @@ class Video(BaseModel):
         verbose_name = '视频'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 # 第四个实体：课程资源（courseresource）
 class CourseResource(BaseModel):
@@ -72,3 +81,7 @@ class CourseResource(BaseModel):
     class Meta:
         verbose_name = '课程资源'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+

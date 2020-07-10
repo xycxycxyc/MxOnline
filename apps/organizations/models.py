@@ -5,12 +5,17 @@ from apps.users.models import BaseModel
 
 # 这里写城市类。主要是为了后期能够手动添加城市
 class City(BaseModel):
-    name = models.CharField(max_length=20, verbose_name='城市')
+    name = models.CharField(max_length=20, verbose_name='城市名')
     desc = models.CharField(max_length=200, verbose_name='描述')
 
     class Meta:
         verbose_name = '城市'
         verbose_name_plural = verbose_name
+    # 魔法方法：重写__str__ 方法，创建实例时能显示实例创建的名称
+
+    def __str__(self):
+        # 要注意，这里return的值一定要存在，为none时，可能会引起异常
+        return self.name
 
 
 class CourseOrg(BaseModel):
@@ -31,6 +36,9 @@ class CourseOrg(BaseModel):
         verbose_name = '课程机构'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class Teacher(BaseModel):
     org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name='所属机构')
@@ -48,3 +56,7 @@ class Teacher(BaseModel):
     class Meta:
         verbose_name = '教师'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+

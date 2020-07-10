@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from apps.users.models import UserProfile
+from apps.users.models import UserProfile  # 注册这张表
 
 
 class UserProfileAdmin(admin.ModelAdmin):
