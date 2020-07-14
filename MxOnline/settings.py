@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.organizations.apps.OrganizationsConfig',
     'crispy_forms',
     'xadmin.apps.XAdminConfig',
+    'captcha',
 
 ]
 
@@ -141,3 +142,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'apps/message_form/static'),
 ]
+
+# 云片网相关设置
+yp_apikey = '9dbdd48d97fdd6f90efd63023220d4e5'
+
+# redis 相关设置
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
