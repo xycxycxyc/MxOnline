@@ -5,11 +5,42 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 import redis
 
-from apps.users.forms import LoginForm, DynamicLoginForm, DynamicLoginPostForm
+from apps.users.forms import LoginForm, DynamicLoginForm, DynamicLoginPostForm, \
+    RegisterGetForm, RegisterPostForm
 from apps.utils.YunPian import send_single_sms
 from MxOnline.settings import yp_apikey, REDIS_HOST, REDIS_PORT
 from apps.utils.random_str import generate_random
 from apps.users.models import UserProfile
+
+
+class RegisterView(View):
+    def get(self, request, *args, **kwargs):
+        register_get_form = RegisterGetForm()
+        return render(request, 'register.html', {
+            'register_get_form': register_get_form,
+        })
+
+    def post(self, request, *args, **kwargs):
+        register_post_form = RegisterPostForm(request.POST)
+        if register_post_form.is_valid():
+            mobile = register_post_form.cleaned_data['mobile']
+            password = register_post_form.cleaned_data['code']
+
+            # 用户不存在，新建一个用户
+            user = UserProfile(username=mobile)
+            user.set_password(password)
+            user.set_password(password)  # 调用此方法，保存的是加密后的密文密码，因为数据库存的是密文
+            user.mobile = mobile
+            user.save()
+            login(request, user)
+            # 登录之后跳转到首页
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            register_get_form = RegisterGetForm()
+            return render(request, "register.html", {
+                "register_get_form": register_get_form,
+                'register_post_form': register_post_form,
+            })
 
 
 class DynamicLoginView(View):

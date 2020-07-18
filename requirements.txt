@@ -1,3 +1,4 @@
-DjangoUeditor
 django==2.2
 mysqlclient
+pillow
+django-pure-pagination

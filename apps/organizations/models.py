@@ -32,6 +32,16 @@ class CourseOrg(BaseModel):
     students = models.IntegerField(default=0, verbose_name='学习人数')
     course_nums = models.IntegerField(default=0, verbose_name='课程数')
 
+    is_auth = models.BooleanField(default=False, verbose_name='是否认证')
+    is_gold = models.BooleanField(default=False, verbose_name='是否金牌')
+
+    def get_courses(self):
+        # from apps.courses.models import Course  # 在这里调用是为了避免循环引用
+        # courses = Course.objects.filter(course_org=self)
+        # courses = self.course_set.all()  # 使用外键反向取数据(取出课程机构org的所有课程）org是course的外键
+        courses = self.course_set.filter(is_classics=True)[:3]
+        return courses
+
     class Meta:
         verbose_name = '课程机构'
         verbose_name_plural = verbose_name
@@ -60,3 +70,5 @@ class Teacher(BaseModel):
     def __str__(self):
         return self.name
 
+    def course_nums(self):
+        return self.course_set.all().count()
